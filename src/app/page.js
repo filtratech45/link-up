@@ -1,15 +1,19 @@
+'use client';
+
+import React from 'react';
 import Image from "next/image";
+import { Switch } from '@headlessui/react'
+
+import Label from './ui/Label';
 import styles from './home.module.css';
 import { manrope } from './font.js';
 
-import { Switch } from '@headlessui/react'
-
 export default function Home() {
-  const [distribLabo, setDistribLabo] = useState(false);
+  const [distribLabo, setDistribLabo] = React.useState(false);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-center  font-mono text-sm lg:flex bg-white place-content-center">
+      <div className="z-10 max-w-5xl w-full items-center justify-center font-mono text-sm lg:flex bg-white place-content-center">
         <div className="bg-white">
           <Image
             src="/link-up.png"
@@ -18,8 +22,8 @@ export default function Home() {
             className="hidden md:block rounded-lg"
             alt="Screenshots of the dashboard project showing desktop version"
           />
-          <div className="text-center pb-20">
-            <p className={`${manrope.className} text-lg`}>The app to keep in touch</p>
+          <div className="text-center pb-10">
+            <p className={`${manrope.className} text-gray-500 text-lg`}>The app to keep in touch</p>
           </div>
           <div class="">
             <label for="Nom entreprise" class="block text-sm font-medium leading-6 text-gray-900">Nom entreprise :</label>
@@ -46,7 +50,7 @@ export default function Home() {
             </div> */}
             </div>
           </div>
-          <div class="pt-15">
+          <div class="pt-2">
             <label for="Pays entreprise" class="block text-sm font-medium leading-6 text-gray-900">Pays de l'entreprise :</label>
             <div class="relative mt-2 rounded-md shadow-sm">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -71,7 +75,7 @@ export default function Home() {
             </div> */}
             </div>
           </div>
-          <div class="pt-15">
+          <div class="pt-2">
             <label for="Nom contact" class="block text-sm font-medium leading-6 text-gray-900">Votre Nom :</label>
             <div class="relative mt-2 rounded-md shadow-sm">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -96,7 +100,7 @@ export default function Home() {
             </div> */}
             </div>
           </div>
-          <div class="pt-15">
+          <div class="pt-2">
             <label for="Prénom du contact" class="block text-sm font-medium leading-6 text-gray-900">Votre Prénom :</label>
             <div class="relative mt-2 rounded-md shadow-sm">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -121,7 +125,7 @@ export default function Home() {
             </div> */}
             </div>
           </div>
-          <div class="pt-15">
+          <div class="pt-2">
             <label for="Fonction contact" class="block text-sm font-medium leading-6 text-gray-900">Votre Fonction :</label>
             <div class="relative mt-2 rounded-md shadow-sm">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -146,7 +150,7 @@ export default function Home() {
             </div> */}
             </div>
           </div>
-          <div class="pt-15">
+          <div class="pt-2">
             <label for="Adresse contact" class="block text-sm font-medium leading-6 text-gray-900">Votre Adresse Mail :</label>
             <div class="relative mt-2 rounded-md shadow-sm">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -171,7 +175,7 @@ export default function Home() {
             </div> */}
             </div>
           </div>
-          <div class="pt-15">
+          <div class="pt-2">
             <label for="Telephone contact" class="block text-sm font-medium leading-6 text-gray-900">Votre Numéro de Téléphone :</label>
             <div class="relative mt-2 rounded-md shadow-sm">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -199,28 +203,26 @@ export default function Home() {
             </div> */}
             </div>
           </div>
-          <div class="pt-15">
-
-          <Switch
-                checked={distribLabo}
-                onChange={setDistribLabo}
-                className={classNames(
-                  distribLabo ? 'bg-indigo-600' : 'bg-gray-200',
-                  'flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                )}
-              >
-                <span className="sr-only">Distributeur de matériel de Laboratoire</span>
-                <span
-                  aria-hidden="true"
-                  className={classNames(
-                    distribLabo ? 'translate-x-3.5' : 'translate-x-0',
-                    'h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out'
-                  )}
-                />
-              </Switch>
-
-
-
+          <div class="pt-2">
+            <Switch.Group>
+              <div className="my-3 flex items-center">
+                <Switch
+                  checked={distribLabo}
+                  onChange={setDistribLabo}
+                  name="distribLabo"
+                  className={`${
+                    distribLabo ? 'bg-blue-600' : 'bg-gray-200'
+                  } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2`}
+                >
+                  <span
+                    className={`${
+                      distribLabo ? 'translate-x-6' : 'translate-x-1'
+                    } inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
+                  />
+                </Switch>
+                <Switch.Label className="ml-4 text-black">Êtes-vous un distributeur de matériel de Laboratoire ?</Switch.Label>
+              </div>
+            </Switch.Group>
 
             {/* <label for="Distrib Labo" class="block text-sm font-medium leading-6 text-gray-900"></label>
             <div class="relative mt-2 rounded-md shadow-sm">
@@ -242,7 +244,7 @@ export default function Home() {
     
             </div> */}
           </div>
-          <div class="pt-15">
+          <div class="pt-2">
             <label for="ColabFitratech" class="block text-sm font-medium leading-6 text-gray-900">Avez-vous déjà collaboré avec Filtratech ?</label>
             <div class="relative mt-2 rounded-md shadow-sm">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -267,7 +269,7 @@ export default function Home() {
             </div> */}
             </div>
           </div>
-          <div class="pt-15">
+          <div class="pt-2">
             <label for="Participation Concours" class="block text-sm font-medium leading-6 text-gray-900">Voulez-vous participer au concours ?</label>
             <div class="relative mt-2 rounded-md shadow-sm">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -292,7 +294,7 @@ export default function Home() {
             </div> */}
             </div>
           </div>
-          <div class="pt-15">
+          <div class="pt-2">
             <label for="ObjetContact" class="block text-sm font-medium leading-6 text-gray-900">Objet Contact :</label>
             <div class="relative mt-2 rounded-md shadow-sm">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
