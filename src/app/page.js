@@ -45,7 +45,7 @@ export default function Home() {
           event.stopPropagation();
           setTimeout(()=> {
             setSubit(false);
-            //  window.location.href="http://localhost:3000/dashboard/Customers"
+             window.location.href="http://localhost:3000/dashboard/Succes"
             }, 3000)
         }}
         action="#"
@@ -72,15 +72,13 @@ export default function Home() {
           <div className="mt-5">
             <Label htmlFor="paysETR">Pays de l'entreprise :</Label>
             <Field image="/drapeau.png" alt="drapeau">
-              {/* <input required type="text" name="paysETR" id="paysETR" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Pays de l'entreprise" /> */}
-              
-    <CountrySelector
-      id="countries"
-      open={isOpen}
-      onToggle={() => setIsOpen(!isOpen)}
-      onChange={(val) => setCountry(val)}
-      selectedValue={COUNTRIES.find(option => option.value === country)}
-    />
+              <CountrySelector
+                id="countries"
+                open={isOpen}
+                onToggle={() => setIsOpen(!isOpen)}
+                onChange={(val) => setCountry(val)}
+                selectedValue={COUNTRIES.find(option => option.value === country)}
+              />
             </Field>
           </div>
           <div className="mt-5">
