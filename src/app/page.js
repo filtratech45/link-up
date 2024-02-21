@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from 'next/link';
 import { motion } from "framer-motion"
 import TextareaAutosize from 'react-textarea-autosize';
+import { setTimeout } from 'timers';
 
 import Label from './ui/Label';
 import Field from './ui/Field';
@@ -12,7 +13,9 @@ import Switch from './ui/Switch';
 import Loader from './ui/loader';
 // import styles from './home.module.css';
 import { manrope } from './font.js';
-import { setTimeout } from 'timers';
+import { COUNTRIES } from '../lib/countries';
+import CountrySelector from '../lib/selector';
+
 
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
@@ -30,6 +33,8 @@ export default function Home() {
   const [autre, setAutre] = React.useState(false);
   const [phone, setPhone] = React.useState()
 
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [country, setCountry] = React.useState('FR');
   return (
     <main className="flex min-h-screen flex-col items-center justify-between md:p-24">
       <form
@@ -67,7 +72,15 @@ export default function Home() {
           <div className="mt-5">
             <Label htmlFor="paysETR">Pays de l'entreprise :</Label>
             <Field image="/drapeau.png" alt="drapeau">
-              <input required type="text" name="paysETR" id="paysETR" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Pays de l'entreprise" />
+              {/* <input required type="text" name="paysETR" id="paysETR" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Pays de l'entreprise" /> */}
+              
+    <CountrySelector
+      id="countries"
+      open={isOpen}
+      onToggle={() => setIsOpen(!isOpen)}
+      onChange={(val) => setCountry(val)}
+      selectedValue={COUNTRIES.find(option => option.value === country)}
+    />
             </Field>
           </div>
           <div className="mt-5">
