@@ -31,6 +31,24 @@ export default function Page() {
     return (
         <div>
             <p>Dashboard Page</p>
+            <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {prospects && prospects.map((prospect, index) => {
+                return (
+                    <tr key={`prospect-${index}`}>
+                        <td>{`${index}`}</td>
+                        <td>{prospect.get('name')}</td>
+                    </tr>
+                );
+            })}
+            </tbody>
+            </table>
         </div>
     );
 }
