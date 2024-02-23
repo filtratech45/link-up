@@ -4,22 +4,13 @@ import Popup from '../../ui/Popup'
 import React from 'react';
 import { getDocs } from "firebase/firestore"; 
 import Image from "next/image";
-import { Dialog, Transition } from '@headlessui/react'
 import { prospectsCollection } from '../../../lib/firebase';
 import Label from '../../ui/Label'
 // import '../../home.module.css';
 
 export default function Page() {
-    let [isOpen, setIsOpen] = React.useState(false)
+    let [comment, setComment] = React.useState(false)
   
-    function closeModal() {
-      setIsOpen(false)
-    }
-  
-    function openModal(prospect) {
-      setIsOpen(prospect)
-    }
-
     const isInitialized = React.useRef(false);
     const [prospects, setProspects] = React.useState(null);
 
@@ -50,13 +41,13 @@ export default function Page() {
                     <col span="1" style={{justifyContent:"center", width:50}}/>
                     <col span="1" style={{justifyContent:"center", width:50}}/>
                     <col span="3"style={{justifyContent:"center", width:50}}/>
-                    <col span="1"style={{justifyContent:"center", width:50}}/>
+                    <col span="1"style={{justifyContent:"center", width:150}}/>
                     <col span="1"style={{justifyContent:"center"}}/>
                 </colgroup>
             <thead>
                 <tr style={{ maxHeight: 25 }}>
-                    <th>Nom de l'entreprise</th>
-                    <th>Pays de l'entreprise</th>
+                    <th>Nom de l&apos;entreprise</th>
+                    <th>Pays de l&apos;entreprise</th>
                     <th>Prénom</th>
                     <th>Nom</th>
                     <th>Fonction</th>
@@ -85,63 +76,73 @@ export default function Page() {
                         <td title={prospect.get('isSupplier') ? "oui" : "non"}>{prospect.get('isSupplier') ? "oui" : "non"}</td>
                         <td title={prospect.get('isCollabFiltratech') ? "oui" : "non"}>{prospect.get('isCollabFiltratech') ? "oui" : "non"}</td>
                         <td title={prospect.get('concours') ? "oui" : "non"}>{prospect.get('concours') ? "oui" : "non"}</td>
-                        <td><div className='flex flex-col content-center justify-center'>{allProspects.demandeInfos && (
-                            <Image
-                            src="/info.png"
-                            title={"Demande infos"}
-                            width={20}
-                            height={20}
-                            className="mb-2"
-                            />
-                        )}{allProspects.demandeEchantillons && (
-                            <Image
-                            title={"Demande echantillons"}
-                            src="/echantillon.png"
-                            width={20}
-                            height={20}
-                            className="mb-2"
-                            />
-                        )}{allProspects.demandePrix && (
-                            <Image
-                            title={"Demande prix"}
-                            src="/prix.png"
-                            width={20}
-                            height={20}
-                            className="mb-2"
-                            />
-                        )}{allProspects.demandeDocCom && (
-                            <Image
-                            title={"Demande documents commercials"}
-                            src="/doc.png"
-                            width={20}
-                            height={20}
-                            className="mb-2"
-                            />
-                        )}{allProspects.autre && (
-                            <div>
+                        <td>
+                            <div className='flex flex-row content-center justify-center'>
+                            {allProspects.demandeInfos && (
                                 <Image
-                                    title={allProspects.autre}
-                                    src="/autre.png"
+                                    alt={"Demande infos"}
+                                    title={"Demande infos"}
+                                    src="/info.png"
                                     width={20}
                                     height={20}
-                                    className="mb-2"
+                                    className="mx-1"
                                 />
-                                {/* <p>{allProspects.autre}</p> */}
+                            )}
+                            {allProspects.demandeEchantillons && (
+                                <Image
+                                    alt={"Demande echantillons"}
+                                    title={"Demande echantillons"}
+                                    src="/echantillon.png"
+                                    width={20}
+                                    height={20}
+                                    className="mx-1"
+                                />
+                            )}
+                            {allProspects.demandePrix && (
+                                <Image
+                                    alt={"Demande prix"}
+                                    title={"Demande prix"}
+                                    src="/prix.png"
+                                    width={20}
+                                    height={20}
+                                    className="mx-1"
+                                />
+                            )}
+                            {allProspects.demandeDocCom && (
+                                <Image
+                                    alt={"Demande documents commercials"}
+                                    title={"Demande documents commercials"}
+                                    src="/doc.png"
+                                    width={20}
+                                    height={20}
+                                    className="mx-1"
+                                />
+                            )}
+                            {allProspects.autre && (
+                                <Image
+                                    alt={allProspects.autre}
+                                    title={allProspects.autre}
+                                    src="/autre.svg"
+                                    width={20}
+                                    height={20}
+                                    className="mx-1 svg-gray"
+                                />
+                            )}
                             </div>
-                        )}</div></td>
+                        </td>
                         <td >{prospect.get('comment') != '' && (
                             <button
-                                onClick={() => <Popup {...prospect.get('comment')}/>}
+                                onClick={() => { setComment(prospect.get('comment')); }}
                                 className={'bg-filtra hover:bg-hfiltra focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm'}
                             >
-                                <div style={{flexDirection: "row", display: "flex", paddingRight: 12}}>
+                                <div style={{flexDirection: "row", display: "flex"}}>
                                     <Label className='focus:outline-none focus:ring focus:pointer'>plus</Label>
                                     <Image
                                         src="/autre.png"
-                                        width={25}
+                                        width={20}
                                         height={20}
-                                        className="ml-1 mr-2"
-                                        alt="avion"
+                                        alt="comment"
+                                        className="ml-1"
                                     />
                                 </div>
                             </button>
@@ -152,6 +153,7 @@ export default function Page() {
             })}
             </tbody>
             </table>
+            <Popup comment={comment} closeModal={() => setComment(false)} />
         </div>
     );
 }

@@ -1,32 +1,15 @@
+import React from 'react';
 import { Dialog, Transition } from '@headlessui/react'
 
-export default function PopUp( { comment } ) {
-    let [isOpen, setIsOpen] = React.useState(false)
-  
-    function closeModal() {
-      setIsOpen(false)
-    }
-  
-    function openModal(prospect) {
-      setIsOpen(prospect)
-    }
-
+export default function PopUp({
+  comment,
+  closeModal,
+} ) {
     return(
-    <>
-      <div className="fixed inset-0 flex items-center justify-center">
-        <button
-          type="button"
-          onClick={openModal}
-          className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
-        >
-          Open dialog
-        </button>
-      </div>
-
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={Boolean(comment)} as={React.Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
-            as={Fragment}
+            as={React.Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -40,7 +23,7 @@ export default function PopUp( { comment } ) {
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
-                as={Fragment}
+                as={React.Fragment}
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
@@ -53,11 +36,11 @@ export default function PopUp( { comment } ) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Payment successful
+                    Commentaire :
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      {...comment}
+                      {comment}
                     </p>
                   </div>
 
@@ -67,7 +50,7 @@ export default function PopUp( { comment } ) {
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Got it, thanks!
+                      Fermer
                     </button>
                   </div>
                 </Dialog.Panel>
@@ -76,6 +59,5 @@ export default function PopUp( { comment } ) {
           </div>
         </Dialog>
       </Transition>
-    </>
     )
 }
