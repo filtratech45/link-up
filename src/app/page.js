@@ -2,10 +2,12 @@
 
 import React from 'react';
 import Image from "next/image";
-import Link from 'next/link';
-import { motion } from "framer-motion"
+import { useRouter } from 'next/navigation'
+// import Link from 'next/link';
+// import { setTimeout } from 'timers';
+// import { motion } from "framer-motion"
 import TextareaAutosize from 'react-textarea-autosize';
-import { setTimeout } from 'timers';
+import { addDoc, query, where, getDocs } from "firebase/firestore"; 
 
 import Label from './ui/Label';
 import Field from './ui/Field';
@@ -13,41 +15,89 @@ import Switch from './ui/Switch';
 import Loader from './ui/loader';
 // import styles from './home.module.css';
 import { manrope } from './font.js';
-import { COUNTRIES } from '../lib/countries';
-import CountrySelector from '../lib/selector';
+import { COUNTRIES } from './lib/countries';
+import CountrySelector from './lib/selector';
 
+import { prospectsCollection } from '../lib/firebase';
 
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 
 
 export default function Home() {
-  const [distribLabo, setDistribLabo] = React.useState(false);
-  const [colabFitratech, setColabFitratech] = React.useState(false);
+  const router = useRouter();
+  // Form
+  const [isSupplier, setIsSupplier] = React.useState(false);
+  const [isCollabFiltratech, setIsCollabFitratech] = React.useState(false);
   const [concours, setConcours] = React.useState(false);
-  const [isSubmiting, setSubit] = React.useState(false);
+  const [isSubmiting, setIsSubmiting] = React.useState(false);
   const [demandeInfos, setDemandeInfos] = React.useState(false);
   const [demandeEchantillons, setDemandeEchantillons] = React.useState(false);
   const [demandePrix, setDemandePrix] = React.useState(false);
   const [demandeDocCom, setDemandeDocCom] = React.useState(false);
   const [autre, setAutre] = React.useState(false);
-  const [phone, setPhone] = React.useState()
-
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [phone, setPhone] = React.useState();
+  // country selector
   const [country, setCountry] = React.useState('FR');
+  const [isOpen, setIsOpen] = React.useState(false);
+  
+  const [error, setError] = React.useState(null);
+
+  const handleEmailChange = () => document.getElementById('email').setCustomValidity('');
+
+  const submitHandler = async (event) => {
+    setError(null);
+    setIsSubmiting(true);
+    event.preventDefault();
+    event.stopPropagation();
+    const prospect = {
+      createdAt: new Date(),
+      drawedAt: null,
+      // createdBy: user,
+      company: event.target.company.value,
+      name: event.target.name.value,
+      surname: event.target.surname.value,
+      role: event.target.role.value,
+      email: event.target.email.value,
+      phone: event.target.phone.value,
+      country: COUNTRIES.find(option => option.value === country).title,
+      isSupplier,
+      isCollabFiltratech,
+      concours,
+      contactObject: {
+        demandeInfos,
+        demandeEchantillons,
+        demandePrix,
+        demandeDocCom,
+        autre: event.target.details?.value || null,
+      },
+      comment: event.target.comment?.value || '',
+    }
+    // console.log("submit", prospect);
+
+    let err = null;
+    try {
+      const q = query(prospectsCollection, where("email", "==", prospect.email));
+      const querySnapshot = await getDocs(q);
+      if (querySnapshot.empty) {
+        const docRef = await addDoc(prospectsCollection, prospect);
+        // console.log("Document written with ID: ", docRef.id);
+      } else {
+        document.getElementById('email').setCustomValidity("Already registered.");
+        err = 'Un enregistrement existe déjà avec cette adresse email';
+      }
+    } catch (e) {
+      err = `Error adding document: ${e}`;
+    }
+    setIsSubmiting(false);
+    if (err) setError(err);
+    else router.push('/Success');
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between md:p-24">
       <form
-        onSubmit={(event) => {
-          console.log("submit");
-          setSubit(true);
-          event.preventDefault();
-          event.stopPropagation();
-          setTimeout(()=> {
-            setSubit(false);
-             window.location.href="http://localhost:3000/dashboard/Succes"
-            }, 3000)
-        }}
+        onSubmit={submitHandler}
         action="#"
         className='mb-12 z-10 px-12 md:rounded-2xl max-w-5xl w-full items-center justify-center place-content-center font-mono text-sm bg-white'
       >
@@ -64,16 +114,16 @@ export default function Home() {
             <p className={`${manrope.className} text-gray-500 text-lg`}>The app to keep in touch</p>
           </div>
           <div className="mt-5">
-            <Label htmlFor="nameETR">Nom entreprise :</Label>
+            <Label htmlFor="company">Nom entreprise :</Label>
             <Field image="/Nom.png" alt="Nom">
-              <input required type="text" name="nameETR" id="nameETR" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nom de l'entreprise" />
+              <input required type="text" name="company" id="company" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nom de l'entreprise" />
             </Field>
           </div>
           <div className="mt-5">
-            <Label htmlFor="paysETR">Pays de l'entreprise :</Label>
+            <Label htmlFor="country">Pays de l&apos;entreprise :</Label>
             <Field image="/drapeau.png" alt="drapeau">
               <CountrySelector
-                id="countries"
+                id="country"
                 open={isOpen}
                 onToggle={() => setIsOpen(!isOpen)}
                 onChange={(val) => setCountry(val)}
@@ -82,56 +132,57 @@ export default function Home() {
             </Field>
           </div>
           <div className="mt-5">
-            <Label htmlFor="surnameC">Votre Nom :</Label>
+            <Label htmlFor="surname">Votre Nom :</Label>
             <Field image="/métier.png" alt="métier">
-              <input required type="text" name="surnameC" id="surnameC" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nom du contact" />
+              <input required type="text" name="surname" id="surname" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nom du contact" />
             </Field>
           </div>
           <div className="mt-5">
-            <Label htmlFor="nameC">Votre Prénom :</Label>
+            <Label htmlFor="name">Votre Prénom :</Label>
             <Field image="/contact.png" alt="contact">
-              <input required type="text" name="nameC" id="nameC" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Prénom du contact" />
+              <input required type="text" name="name" id="name" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Prénom du contact" />
             </Field>
           </div>
           <div className="mt-5">
-            <Label htmlFor="FC">Votre Fonction :</Label>
+            <Label htmlFor="role">Votre Fonction :</Label>
             <Field image="/contact.png" alt="contact">
-              <input required type="text" name="FC" id="FC" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Fonction du contact"/>
+              <input required type="text" name="role" id="role" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Fonction du contact"/>
             </Field>
           </div>
           <div className="mt-5">
-            <Label htmlFor="MailC">Votre Adresse Mail :</Label>
+            <Label htmlFor="email">Votre Adresse Mail :</Label>
             <Field image="/mail.png" alt="mail">
-              <input required type="email" name="MailC" id="MailC" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Adresse mail du contact"/>
+              <input required type="email" name="email" id="email" onChange={handleEmailChange} className="invalid:border-red-500 invalid:text-pink-600 block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Adresse mail du contact"/>
             </Field>
           </div>
           <div className="mt-5">
-            <Label htmlFor="TelC">Votre Numéro de Téléphone (sans espaces) :</Label>
+            <Label htmlFor="phone">Votre Numéro de Téléphone (sans espaces) :</Label>
             <Field>
             <PhoneInput
-              placeholder="Numéro de télépone du contact"
+              id="phone"
               value={phone}
               onChange={setPhone}
+              placeholder="Numéro de télépone du contact"
               className="block w-full rounded-md border-0 py-1.5 pl-3 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               // placeholder="Numéro de téléphone du contact"
             />
-              {/* <input required type="tel" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" name="TelC" id="TelC" className="block w-full rounded-md border-0 py-1.5 pl-11 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Numéro de téléphone du contact"/> */}
+              {/* <input required type="tel" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" name="phone" id="phone" className="block w-full rounded-md border-0 py-1.5 pl-11 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Numéro de téléphone du contact"/> */}
             </Field>
           </div>
           <div className="mt-5">
             <Switch
-              name="distribLabo"
-              checked={distribLabo}
-              onChange={setDistribLabo}
+              name="isSupplier"
+              checked={isSupplier}
+              onChange={setIsSupplier}
             >
               Êtes-vous un distributeur de matériel de Laboratoire ?
             </Switch>
           </div>
           <div className="mt-5">
             <Switch
-              checked={colabFitratech}
-              onChange={setColabFitratech}
-              name="colabFitratech">
+              checked={isCollabFiltratech}
+              onChange={setIsCollabFitratech}
+              name="isCollabFiltratech">
               Avez-vous déjà collaboré avec Filtratech ?
             </Switch>
           </div>
@@ -139,24 +190,24 @@ export default function Home() {
           <Switch
               checked={concours}
               onChange={setConcours}
-              name="ConcoursP">
+              name="concours">
               Voulez-vous participer au concours ?
             </Switch>
           </div>
           <div className="mt-5 rounded-lg border border-slate-300 drop-shadow-md bg-white">
             <div className='p-5'>
-            <Label htmlFor="ObjetContact">Objet Contact :</Label>
+            <Label htmlFor="ContactObject">Objet Contact :</Label>
             <Switch
               checked={demandeInfos}
               onChange={setDemandeInfos}
               name="DemandeInfos">
-              demande d'informations
+              demande d&apos;informations
             </Switch>
             <Switch
               checked={demandeEchantillons}
               onChange={setDemandeEchantillons}
               name="DemandeEchantillons">
-              demande d'échantillons
+              demande d&apos;échantillons
             </Switch>
             <Switch
               checked={demandePrix}
@@ -180,8 +231,10 @@ export default function Home() {
               <div>
                 <Field image="/stylo.png" alt="stylo">
                   <TextareaAutosize
-                    required={autre ? true : false}
+                    id="details"
+                    name="details"
                     cacheMeasurements
+                    required={autre ? true : false}
                     className="min-h-9 block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Autre"
                   />
                 </Field>
@@ -192,14 +245,21 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-5">
-            <Label htmlFor="RemarqE">Remarques éventuelles :</Label>
+            <Label htmlFor="comment">Remarques éventuelles :</Label>
             <Field image="/stylo.png" alt="stylo">
             <TextareaAutosize
+              id="comment"
+              name="comment"
               cacheMeasurements
               className="min-h-9 block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Remarques éventuelles"
             />
             </Field>
           </div>
+          {error && 
+            <div className="my-10 w-full flex">
+                <p className='border-red-500 text-pink-600 '>{error}</p>
+            </div>
+          }
           <div className="my-10 w-full flex justify-end">
             <button
               disabled={isSubmiting}

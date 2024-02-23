@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { COUNTRIES } from "./countries";
 import { SelectMenuOption } from "./types";
 import { AnimatePresence, motion } from "framer-motion";
@@ -59,8 +60,10 @@ export default function CountrySelector({
           disabled={disabled}
         >
           <span className="truncate flex items-center">
-            <img
-              alt={`${selectedValue.value}`}
+            <Image
+              alt={selectedValue.value}
+              width={20}
+              height={20}
               src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${selectedValue.value}.svg`}
               className={"inline mr-2 h-4 rounded-sm"}
             />

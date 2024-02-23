@@ -7,6 +7,7 @@ export const metadata = {
   description: "An app to keep in touch",
 };
 
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
