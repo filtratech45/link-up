@@ -33,3 +33,52 @@ body {
     text-wrap: balance;
   }
 }
+
+#prospects {
+  /* background-color: blue; */
+  /* padding: 20px; */
+  font-size: 90%;
+}
+#prospects > table {
+  width:"100%";
+  max-width: 100vw;
+  display: table;
+  /* box-sizing: border-box; */
+  table-layout:"fixed";
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+#prospects td {
+  white-space: nowrap; 
+}
+
+
+
+#prospects > table > tbody > tr:nth-child(even) {
+  background-color: lightgray;
+}
+
+#prospects > table > thead > tr,
+#prospects > table > tbody > tr {
+  /* margin: 10px; */
+  background-color: white;
+  border: 1px solid black;
+}
+#prospects th,
+#prospects td  {
+  /* justify-content: center; */
+  align-content: center;
+  text-align:"center";
+  word-wrap: 'break-word';
+  text-overflow: 'ellipsis';
+  padding: 10px;
+  border: 1px solid black;
+  overflow: 'hidden';
+  /* background-color: green; */
+}
+
+#prospects th {
+  color: white;
+  background-color: #35ab50;
+}
