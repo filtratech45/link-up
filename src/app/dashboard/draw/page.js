@@ -7,8 +7,10 @@ import Label from '../../ui/Label'
 import Image from "next/image";
 import { manrope } from '../../font.js';
 import Check from "../../ui/Check";
+import { useRouter } from 'next/navigation'
 
 export default function PageTirage() {
+    const router = useRouter();
     // let allProspects = null
     const isInitialized = React.useRef(false);
     const [prospects, setProspects] = React.useState(null);
@@ -59,6 +61,7 @@ export default function PageTirage() {
     
       
     return (
+        <div>
         <main className="flex min-h-screen flex-col items-center justify-between md:p-24">
             <div className='pb-12 flex flex-col justify-center min-h-screen mb-12 z-10 px-12 md:rounded-2xl max-w-5xl w-full items-center place-content-center font-mono text-sm bg-white'>
                 <div style={{display: "flex", flexDirection: "column", alignItems:"center"}}>
@@ -207,6 +210,14 @@ export default function PageTirage() {
                 </div>
                 )}
             </div>
+            
         </main>
+            <button
+                onClick={() => {router.push('/dashboard/Prospects')}}
+                className={'z-40 sticky border border-black shadow-lg bottom-5 left-5 bg-filtra hover:bg-hfiltra focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md px-3 py-2 text-sm font-semibold text-white'}
+            >
+                <p>Revenir au tableau</p>
+            </button>
+        </div>
     );
 }

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { prospectsCollection } from '../../../lib/firebase';
 import Label from '../../ui/Label'
 import Check from '../../ui/Check'
+import { useRouter } from 'next/navigation'
 // import '../../home.module.css';
 
 export default function Page() {
@@ -33,9 +34,9 @@ export default function Page() {
 
         return () => { console.log('CANCEL'); cancelled = true; }
     }, []);
-
+    const router = useRouter();
     return (
-        <div id="prospects">
+        <div id="prospects" className=''>
             <table style={{maxWidth: '100vw'}}>
                 <colgroup>
                     <col span="5" style={{width: "8.3%"}}/>
@@ -185,10 +186,10 @@ export default function Page() {
                                     {/* <Label className='focus:outline-none focus:ring focus:pointer'>plus</Label> */}
                                     <Image
                                         src="/autre.png"
-                                        width={20}
-                                        height={20}
+                                        width={25}
+                                        height={25}
                                         alt="comment"
-                                        className=""
+                                        className="svg-white"
                                     />
                                 </div>
                             </button>
@@ -200,6 +201,12 @@ export default function Page() {
             </tbody>
             </table>
             <Popup comment={comment} closeModal={() => setComment(false)} />
+            <button
+                onClick={() => {router.push('/dashboard/draw')}}
+                className={'sticky border border-black shadow-lg bottom-5 left-5 bg-filtra hover:bg-hfiltra focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md px-3 py-2 text-sm font-semibold text-white'}
+            >
+                <p>Passer au tirage</p>
+            </button>
         </div>
     );
 }
