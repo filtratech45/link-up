@@ -1,13 +1,13 @@
 'use client';
 
-import { query, where, getDocs } from "firebase/firestore";
-import { prospectsCollection } from '../../../lib/firebase';
 import React from "react";
-import Label from '../../ui/Label'
 import Image from "next/image";
-import { manrope } from '../../font.js';
-import Check from "../../ui/Check";
 import { useRouter } from 'next/navigation'
+import { query, where, getDocs } from "firebase/firestore";
+
+import Check from "../../ui/Check";
+import { manrope } from '../../font.js';
+import { prospectsCollection } from '../../../lib/firebase';
 
 export default function PageTirage() {
     const router = useRouter();
@@ -22,7 +22,7 @@ export default function PageTirage() {
     toDate.setHours(23, 59, 59, 0);
     React.useEffect(() => {
         let cancelled = false;
-        console.log('fetch');
+        // console.log('fetch');
         async function fetch() {
             try {
                 const q = await query(prospectsCollection, 
@@ -34,10 +34,8 @@ export default function PageTirage() {
                 const results = await getDocs(q);
                 isInitialized.current = true;
                 if (!cancelled) {
-                    console.log(results.docs);
+                    // console.log(results.docs);
                     setProspects(results.docs);
-                } else {
-                    console.log('cancelled');
                 }
             } catch(e) {
                 console.error(e);
@@ -46,24 +44,18 @@ export default function PageTirage() {
 
         if (!isInitialized.current) fetch();
 
-        return () => { console.log('CANCEL'); cancelled = true; }
+        return () => { cancelled = true; }
     }, []);
     
     function draw() { // min and max included 
         const rndInt = Math.floor(Math.random() * (prospects.length));
-        console.log(rndInt)
-        setProspect(prospects[rndInt])
-        console.log(prospect)
+        setProspect(prospects[rndInt]);
     }
-
-    
-    
-    
       
     return (
         <div>
-        <main className="flex min-h-screen flex-col items-center justify-between md:p-24">
-            <div className='pb-12 flex flex-col justify-center min-h-screen mb-12 z-10 px-12 md:rounded-2xl max-w-5xl w-full items-center place-content-center font-mono text-sm bg-white'>
+        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+            <div className='pb-12 flex flex-col justify-center min-h-screen mb-12 z-10 px-12 rounded-2xl max-w-5xl w-full items-center place-content-center font-mono text-sm bg-white'>
                 <div style={{display: "flex", flexDirection: "column", alignItems:"center"}}>
                 <Image
                     src="/link-up.png"
@@ -105,7 +97,7 @@ export default function PageTirage() {
                         </div>
                         <div className="flex fex-row py-2">
                             <p className="pr-2">
-                                Nom de l'entreprise : 
+                                Nom de l&apos;entreprise : 
                             </p>
                             <p>
                                 {prospect.get('company')}
@@ -113,7 +105,7 @@ export default function PageTirage() {
                         </div>
                         <div className="flex fex-row py-2">
                             <p className="pr-2">
-                                Pays de l'entreprise : 
+                                Pays de l&apos;entreprise : 
                             </p>
                             <p>
                                 {prospect.get('country')}
@@ -155,7 +147,7 @@ export default function PageTirage() {
                                     <Image
                                         alt={"Demande echantillons"}
                                         title={"Demande echantillons"}
-                                        src="/echantillon.png"
+                                        src="/sample.png"
                                         width={20}
                                         height={20}
                                         className="mx-1 svg-blue"
@@ -165,7 +157,7 @@ export default function PageTirage() {
                                     <Image
                                         alt={"Demande prix"}
                                         title={"Demande prix"}
-                                        src="/prix.png"
+                                        src="/price.png"
                                         width={20}
                                         height={20}
                                         className="mx-1 svg-yellow"
@@ -185,7 +177,7 @@ export default function PageTirage() {
                                     <Image
                                         alt={prospect.get('contactObject').autre}
                                         title={prospect.get('contactObject').autre}
-                                        src="/autre.svg"
+                                        src="/other.png"
                                         width={20}
                                         height={20}
                                         className="mx-1 svg-gray"

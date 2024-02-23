@@ -1,14 +1,13 @@
 'use client';
 
-import Popup from '../../ui/Popup'
 import React from 'react';
-import { getDocs } from "firebase/firestore"; 
 import Image from "next/image";
-import { prospectsCollection } from '../../../lib/firebase';
-import Label from '../../ui/Label'
-import Check from '../../ui/Check'
 import { useRouter } from 'next/navigation'
-// import '../../home.module.css';
+import { getDocs } from "firebase/firestore"; 
+
+import Check from '../../ui/Check'
+import Popup from '../../ui/Popup'
+import { prospectsCollection } from '../../../lib/firebase';
 
 export default function Page() {
     let [comment, setComment] = React.useState(false)
@@ -18,21 +17,18 @@ export default function Page() {
 
     React.useEffect(() => {
         let cancelled = false;
-        console.log('fetch');
         async function fetch() {
             const results = await getDocs(prospectsCollection);
             isInitialized.current = true;
             if (!cancelled) {
-                console.log(results.docs);
+                // console.log(results.docs);
                 setProspects(results.docs);
-            } else {
-                console.log('cancelled');
             }
         }
 
         if (!isInitialized.current) fetch();
 
-        return () => { console.log('CANCEL'); cancelled = true; }
+        return () => { cancelled = true; }
     }, []);
     const router = useRouter();
     return (
@@ -60,7 +56,7 @@ export default function Page() {
                             <Image
                                 alt={"distributeur matériel de laboratoire"}
                                 title={"distributeur matériel de laboratoire"}
-                                src="/laboratoire.png"
+                                src="/laboratory.png"
                                 width={25}
                                 height={25}
                                 className="mx-1 svg-white"
@@ -84,7 +80,7 @@ export default function Page() {
                         <Image
                             alt={"Participation au jeu"}
                             title={"Participation au jeu"}
-                            src="/jeu.png"
+                            src="/game.png"
                             width={25}
                             height={25}
                             className="mx-1 svg-white"
@@ -98,7 +94,7 @@ export default function Page() {
                         <Image
                             alt={"Remarques"}
                             title={"Remarques"}
-                            src="/remarque.png"
+                            src="/note.png"
                             width={25}
                             height={25}
                             className="mx-1 svg-white"
@@ -139,7 +135,7 @@ export default function Page() {
                                 <Image
                                     alt={"Demande echantillons"}
                                     title={"Demande echantillons"}
-                                    src="/echantillon.png"
+                                    src="/sample.png"
                                     width={20}
                                     height={20}
                                     className="mx-1 svg-blue"
@@ -149,7 +145,7 @@ export default function Page() {
                                 <Image
                                     alt={"Demande prix"}
                                     title={"Demande prix"}
-                                    src="/prix.png"
+                                    src="/price.png"
                                     width={20}
                                     height={20}
                                     className="mx-1 svg-yellow"
@@ -169,7 +165,7 @@ export default function Page() {
                                 <Image
                                     alt={allProspects.autre}
                                     title={allProspects.autre}
-                                    src="/autre.svg"
+                                    src="/other.png"
                                     width={20}
                                     height={20}
                                     className="mx-1 svg-gray"
@@ -185,7 +181,7 @@ export default function Page() {
                                 <div style={{flexDirection: "row", display: "flex"}}>
                                     {/* <Label className='focus:outline-none focus:ring focus:pointer'>plus</Label> */}
                                     <Image
-                                        src="/autre.png"
+                                        src="/other.png"
                                         width={25}
                                         height={25}
                                         alt="comment"

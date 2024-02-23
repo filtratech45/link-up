@@ -2,10 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
+import { useRouter } from 'next/navigation'
 
 import { manrope } from '../font.js';
 
 export default function Page() {
+    const router = useRouter();
     const [isclicked, setClicked] = React.useState(false)
     return (
         <main className="flex min-h-screen flex-col items-center justify-between md:p-24">
@@ -24,7 +26,7 @@ export default function Page() {
                     <div className="bg-white rounded-2xl shadow-lg flex flex-row md:mx-0 mx-5">
                         <div className="flex flex-row p-5">
                             <Image
-                                src="/succes2.png"
+                                src="/succes.png"
                                 width={120}
                                 height={120}
                                 className="rounded-lg"
@@ -40,7 +42,7 @@ export default function Page() {
                         <div className="flex justify-end">
                             <button
                                 value={isclicked}
-                                onClick={() => {setClicked; window.location.href="http://localhost:3000"}}
+                                onClick={() => { setClicked(true); router.push("/"); }}
                                 className={`${isclicked ? 'bg-slate-300' : 'bg-filtra hover:bg-hfiltra focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'} rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm flex flex-row`}
                             >
                                 <div className="flex flex-row">

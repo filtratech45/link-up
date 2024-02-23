@@ -3,25 +3,20 @@
 import React from 'react';
 import Image from "next/image";
 import { useRouter } from 'next/navigation'
-// import Link from 'next/link';
-// import { setTimeout } from 'timers';
-// import { motion } from "framer-motion"
+import PhoneInput from 'react-phone-number-input'
 import TextareaAutosize from 'react-textarea-autosize';
 import { addDoc, query, where, getDocs } from "firebase/firestore"; 
+
+import 'react-phone-number-input/style.css'
 
 import Label from './ui/Label';
 import Field from './ui/Field';
 import Switch from './ui/Switch';
 import Loader from './ui/loader';
-// import styles from './home.module.css';
 import { manrope } from './font.js';
 import { COUNTRIES } from './lib/countries';
 import CountrySelector from './lib/selector';
-
 import { prospectsCollection } from '../lib/firebase';
-
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
 
 
 export default function Home() {
@@ -115,13 +110,13 @@ export default function Home() {
           </div>
           <div className="mt-5">
             <Label htmlFor="company">Nom entreprise :</Label>
-            <Field image="/Nom.png" alt="Nom">
+            <Field image="/company.png" alt="Nom">
               <input required type="text" name="company" id="company" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nom de l'entreprise" />
             </Field>
           </div>
           <div className="mt-5">
             <Label htmlFor="country">Pays de l&apos;entreprise :</Label>
-            <Field image="/drapeau.png" alt="drapeau">
+            <Field image="/country.png" alt="drapeau">
               <CountrySelector
                 id="country"
                 open={isOpen}
@@ -133,25 +128,25 @@ export default function Home() {
           </div>
           <div className="mt-5">
             <Label htmlFor="surname">Votre Nom :</Label>
-            <Field image="/métier.png" alt="métier">
+            <Field image="/surname.png" alt="métier">
               <input required type="text" name="surname" id="surname" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nom du contact" />
             </Field>
           </div>
           <div className="mt-5">
             <Label htmlFor="name">Votre Prénom :</Label>
-            <Field image="/contact.png" alt="contact">
+            <Field image="/name.png" alt="contact">
               <input required type="text" name="name" id="name" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Prénom du contact" />
             </Field>
           </div>
           <div className="mt-5">
             <Label htmlFor="role">Votre Fonction :</Label>
-            <Field image="/contact.png" alt="contact">
+            <Field image="/name.png" alt="contact">
               <input required type="text" name="role" id="role" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Fonction du contact"/>
             </Field>
           </div>
           <div className="mt-5">
             <Label htmlFor="email">Votre Adresse Mail :</Label>
-            <Field image="/mail.png" alt="mail">
+            <Field image="/email.png" alt="mail">
               <input required type="email" name="email" id="email" onChange={handleEmailChange} className="invalid:border-red-500 invalid:text-pink-600 block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Adresse mail du contact"/>
             </Field>
           </div>
@@ -229,7 +224,7 @@ export default function Home() {
             </Switch>
             {autre ? (
               <div>
-                <Field image="/stylo.png" alt="stylo">
+                <Field image="/details.png" alt="stylo">
                   <TextareaAutosize
                     id="details"
                     name="details"
@@ -246,7 +241,7 @@ export default function Home() {
           </div>
           <div className="mt-5">
             <Label htmlFor="comment">Remarques éventuelles :</Label>
-            <Field image="/stylo.png" alt="stylo">
+            <Field image="/details.png" alt="stylo">
             <TextareaAutosize
               id="comment"
               name="comment"
@@ -275,11 +270,11 @@ export default function Home() {
                   <div style={{flexDirection: "row", display: "flex"}}>
                     <Label className='focus:outline-none focus:ring focus:pointer'>Enregister</Label>
                     <Image
-                      src="/avion2.png"
+                      src="/plane.png"
                       width={20}
                       height={15}
                       className="rounded-lg ml-3"
-                      alt="avion"
+                      alt="save"
                     />
                   </div>
                 )}

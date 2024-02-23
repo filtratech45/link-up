@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import { COUNTRIES } from "./countries";
 import { SelectMenuOption } from "./types";
