@@ -40,11 +40,11 @@ body {
   font-size: 90%;
 }
 #prospects > table {
-  width:"100%";
+  width: 100%;
   max-width: 100vw;
   display: table;
   /* box-sizing: border-box; */
-  table-layout:"fixed";
+  table-layout: fixed;
   border-spacing: 0;
   border-collapse: collapse;
 }
@@ -69,12 +69,12 @@ body {
 #prospects td  {
   /* justify-content: center; */
   align-content: center;
-  text-align:"center";
-  word-wrap: 'break-word';
-  text-overflow: 'ellipsis';
+  text-align: center;
+  overflow: hidden;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
   padding: 10px;
   border: 1px solid black;
-  overflow: 'hidden';
   /* background-color: green; */
 }
 
@@ -85,4 +85,23 @@ body {
 
 .svg-gray {
   filter: invert(41%) sepia(3%) saturate(30%) hue-rotate(335deg) brightness(93%) contrast(86%);
+}
+
+.svg-green {
+  filter: invert(61%) sepia(25%) saturate(4256%) hue-rotate(81deg) brightness(110%) contrast(128%);  
+}
+
+.svg-yellow {
+  filter: invert(97%) sepia(48%) saturate(7494%) hue-rotate(357deg) brightness(104%) contrast(107%);
+}
+
+.svg-red {
+  filter: invert(21%) sepia(83%) saturate(5312%) hue-rotate(10deg) brightness(95%) contrast(101%);
+}
+
+.svg-blue {
+  filter: invert(73%) sepia(26%) saturate(5076%) hue-rotate(135deg) brightness(96%) contrast(101%);
+}
+.svg-white {
+  filter: invert(100%) sepia(0%) saturate(7150%) hue-rotate(253deg) brightness(87%) contrast(137%);
 }

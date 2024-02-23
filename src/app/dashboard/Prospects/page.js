@@ -6,6 +6,7 @@ import { getDocs } from "firebase/firestore";
 import Image from "next/image";
 import { prospectsCollection } from '../../../lib/firebase';
 import Label from '../../ui/Label'
+import Check from '../../ui/Check'
 // import '../../home.module.css';
 
 export default function Page() {
@@ -35,14 +36,14 @@ export default function Page() {
 
     return (
         <div id="prospects">
-            <table >
+            <table style={{maxWidth: '100vw'}}>
                 <colgroup>
-                    <col span="5" style={{width: 25}}/>
-                    <col span="1" style={{justifyContent:"center", width:50}}/>
-                    <col span="1" style={{justifyContent:"center", width:50}}/>
-                    <col span="3"style={{justifyContent:"center", width:50}}/>
-                    <col span="1"style={{justifyContent:"center", width:150}}/>
-                    <col span="1"style={{justifyContent:"center"}}/>
+                    <col span="5" style={{width: "8.3%"}}/>
+                    <col span="1" style={{justifyContent:"center", width: "16.6%"}}/>
+                    <col span="1" style={{justifyContent:"center", width: "12%"}}/>
+                    <col span="3" style={{justifyContent:"center", width: "4.2%"}}/>
+                    <col span="1" style={{justifyContent:"center", width: "13.1%"}}/>
+                    <col span="1" style={{justifyContent:"center", width: "4.2%"}}/>
                 </colgroup>
             <thead>
                 <tr style={{ maxHeight: 25 }}>
@@ -53,9 +54,43 @@ export default function Page() {
                     <th>Fonction</th>
                     <th>Email</th>
                     <th>Téléphone</th>
-                    <th>distributeur matériel de labo</th>
-                    <th>Colaboration avec Filtratech</th>
-                    <th>Participation au jeu</th>
+                    <th>
+                        <div className='w-full h-full justify-center flex'>                    
+                            <Image
+                                alt={"distributeur matériel de laboratoire"}
+                                title={"distributeur matériel de laboratoire"}
+                                src="/laboratoire.png"
+                                width={25}
+                                height={25}
+                                className="mx-1 svg-white"
+                            />
+                        </div>
+                    </th>
+                    <th>
+                        <div className='w-full h-full justify-center flex'>                    
+                            <Image
+                                alt={"Colaboration avec Filtratech"}
+                                title={"Colaboration avec Filtratech"}
+                                src="/collab.png"
+                                width={25}
+                                height={25}
+                                className="mx-1 svg-white"
+                            />
+                        </div>
+                    </th>
+                    <th>
+                        <div className='w-full h-full justify-center flex'>                    
+                        <Image
+                            alt={"Participation au jeu"}
+                            title={"Participation au jeu"}
+                            src="/jeu.png"
+                            width={25}
+                            height={25}
+                            className="mx-1 svg-white"
+                        />
+                        </div>
+
+                    </th>
                     <th>Objet du contact</th>
                     <th style={{ maxWidth:20, textOverflow: 'ellipsis'}}>Remarques</th>
                 </tr>
@@ -73,9 +108,9 @@ export default function Page() {
                         <td title={prospect.get('role')}>{prospect.get('role')}</td>
                         <td title={prospect.get('email')}>{prospect.get('email')}</td>
                         <td title={prospect.get('phone')}>{prospect.get('phone')}</td>
-                        <td title={prospect.get('isSupplier') ? "oui" : "non"}>{prospect.get('isSupplier') ? "oui" : "non"}</td>
-                        <td title={prospect.get('isCollabFiltratech') ? "oui" : "non"}>{prospect.get('isCollabFiltratech') ? "oui" : "non"}</td>
-                        <td title={prospect.get('concours') ? "oui" : "non"}>{prospect.get('concours') ? "oui" : "non"}</td>
+                        <Check condition={prospect.get('isSupplier')}/>
+                        <Check condition={prospect.get('isCollabFiltratech')}/>
+                        <Check condition={prospect.get('concours')}/>
                         <td>
                             <div className='flex flex-row content-center justify-center'>
                             {allProspects.demandeInfos && (
@@ -85,7 +120,7 @@ export default function Page() {
                                     src="/info.png"
                                     width={20}
                                     height={20}
-                                    className="mx-1"
+                                    className="mx-1 svg-red"
                                 />
                             )}
                             {allProspects.demandeEchantillons && (
@@ -95,7 +130,7 @@ export default function Page() {
                                     src="/echantillon.png"
                                     width={20}
                                     height={20}
-                                    className="mx-1"
+                                    className="mx-1 svg-blue"
                                 />
                             )}
                             {allProspects.demandePrix && (
@@ -105,7 +140,7 @@ export default function Page() {
                                     src="/prix.png"
                                     width={20}
                                     height={20}
-                                    className="mx-1"
+                                    className="mx-1 svg-yellow"
                                 />
                             )}
                             {allProspects.demandeDocCom && (
@@ -136,13 +171,13 @@ export default function Page() {
                                 className={'bg-filtra hover:bg-hfiltra focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm'}
                             >
                                 <div style={{flexDirection: "row", display: "flex"}}>
-                                    <Label className='focus:outline-none focus:ring focus:pointer'>plus</Label>
+                                    {/* <Label className='focus:outline-none focus:ring focus:pointer'>plus</Label> */}
                                     <Image
                                         src="/autre.png"
                                         width={20}
                                         height={20}
                                         alt="comment"
-                                        className="ml-1"
+                                        className=""
                                     />
                                 </div>
                             </button>
