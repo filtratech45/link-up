@@ -92,7 +92,18 @@ export default function Page() {
 
                     </th>
                     <th>Objet du contact</th>
-                    <th style={{ maxWidth:20, textOverflow: 'ellipsis'}}>Remarques</th>
+                    <th style={{ maxWidth:20, textOverflow: 'ellipsis'}}>
+                        <div className='w-full h-full justify-center flex'>
+                        <Image
+                            alt={"Remarques"}
+                            title={"Remarques"}
+                            src="/remarque.png"
+                            width={25}
+                            height={25}
+                            className="mx-1 svg-white"
+                        />
+                        </div>
+                        </th>
                 </tr>
             </thead>
             <tbody>
