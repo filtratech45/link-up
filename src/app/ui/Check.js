@@ -1,8 +1,7 @@
 import React from 'react';
 import Image from "next/image";
 
-export default function Check({condition}) {
-    return (
+const Check = ({condition}) => (
     <td title={condition ? "oui" : "non"}>
         <div className='w-full h-full justify-center flex'>
         {condition ? (
@@ -25,5 +24,7 @@ export default function Check({condition}) {
             />
         )}
         </div>
-    </td>);
-}
+    </td>
+);
+
+export default Check;

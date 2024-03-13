@@ -10,6 +10,7 @@ import Popup from '../../ui/Popup'
 import { prospectsCollection } from '../../../lib/firebase';
 
 export default function Page() {
+    const router = useRouter();
     let [comment, setComment] = React.useState(false)
   
     const isInitialized = React.useRef(false);
@@ -30,7 +31,7 @@ export default function Page() {
 
         return () => { cancelled = true; }
     }, []);
-    const router = useRouter();
+
     return (
         <div id="prospects" className=''>
             <table style={{maxWidth: '100vw'}}>
