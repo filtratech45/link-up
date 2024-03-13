@@ -8,13 +8,13 @@ import { addDoc, query, where, getDocs } from "firebase/firestore";
 
 import 'react-phone-number-input/style.css'
 
-import Label from '../ui/Label';
-import Field from '../ui/Field';
-import Switch from '../ui/Switch';
-import Loader from '../ui/loader';
-import { COUNTRIES } from '../lib/countries';
-import CountrySelector from '../lib/selector';
-import { prospectsCollection } from '../../lib/firebase';
+import Label from '/src/ui/Label';
+import Field from '/src/ui/Field';
+import Switch from '/src/ui/Switch';
+import Loader from '/src/ui/loader';
+import { COUNTRIES } from '/src/lib/countries';
+import CountrySelector from '/src/lib/selector';
+import { prospectsCollection } from '/src/lib/firebase';
 
 const LinkUp = ({ onSubmit }) => {
   // Form

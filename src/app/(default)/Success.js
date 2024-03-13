@@ -3,8 +3,6 @@
 import React from "react";
 import Image from "next/image";
 
-import { manrope } from '../font.js';
-
 export default function Page({ onBack }) {
     return (
         <div className="w-full h-full justify-center flex flex-col items-center justify-center place-content-center">

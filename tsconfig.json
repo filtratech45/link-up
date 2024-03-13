@@ -26,10 +26,14 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "build/types/**/*.ts"
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "baseUrl": "./src/",
+  "paths": {
+    "@/ui/*": ["ui/*"],
+    "@/lib/*": ["lib/*"]
+  }
 }

@@ -5,8 +5,8 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation'
 import { query, where, getDocs } from "firebase/firestore";
 
-import Check from "../../ui/Check";
-import { prospectsCollection } from '../../../lib/firebase';
+import Check from "/src/ui/Check";
+import { prospectsCollection } from '/src/lib/firebase';
 
 export default function PageTirage() {
     const router = useRouter();
@@ -58,18 +58,19 @@ export default function PageTirage() {
     return (
     <div className="w-full h-full justify-center flex flex-col items-center justify-center place-content-center">
         <div className="flex justify-end">
+            {Boolean(error) ? (
+                <div className="flex flex-col rounded-2xl bg-white text-red-600 drop-shadow-lg p-8">
+                    {error}
+                </div>
+            ) : (
             <button
                 className={'bg-filtra hover:bg-hfiltra focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md px-3 py-2 my-10 text-sm font-semibold text-white shadow-sm'}
                 onClick={() => { draw(); setClicked(true); }}>
                 {clicked ? "Retirer au sort" : "Tirer au sort"}
             </button>
+            )}
         </div>
         <div className="flex justify-end">
-            {Boolean(error) && (
-                <div className="flex flex-col rounded-2xl bg-white text-red-600 drop-shadow-lg p-8">
-                    {error}
-                </div>
-            )}
             {Boolean(prospect) && (
             <div className="flex flex-col rounded-2xl bg-white drop-shadow-lg p-8">
                 <div className="flex fex-row py-2">

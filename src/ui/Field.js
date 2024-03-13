@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from "next/image";
 
-export default function Field({ children, image, alt, extraImage, ...props }) {
+export default function Field({ children, image, alt, extraImage }) {
     return (
         <div className="relative mt-2 rounded-md shadow-sm font-mono">
             {image && (<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">

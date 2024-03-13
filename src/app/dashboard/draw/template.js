@@ -1,8 +1,8 @@
 // import { Inter, lusitana } from "next/font/google";
 import Image from "next/image";
 
-import "../../globals.css";
-import { manrope, inter } from '../../font.js';
+import "/src/app/globals.css";
+import { manrope, inter } from '/src/app/font.js';
 
 export const metadata = {
   title: "Link Up",

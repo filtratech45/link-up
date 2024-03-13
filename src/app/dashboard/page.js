@@ -5,9 +5,9 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation'
 import { getDocs } from "firebase/firestore"; 
 
-import Check from '../ui/Check'
-import Popup from '../ui/Popup'
-import { prospectsCollection } from '../../lib/firebase';
+import Check from '/src/ui/Check'
+import Popup from '/src/ui/Popup'
+import { prospectsCollection } from '/src/lib/firebase';
 
 export default function Page() {
     const router = useRouter();
