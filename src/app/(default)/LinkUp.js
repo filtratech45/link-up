@@ -8,14 +8,13 @@ import { addDoc, query, where, getDocs } from "firebase/firestore";
 
 import 'react-phone-number-input/style.css'
 
-import Label from './ui/Label';
-import Field from './ui/Field';
-import Switch from './ui/Switch';
-import Loader from './ui/loader';
-import { manrope } from './font.js';
-import { COUNTRIES } from './lib/countries';
-import CountrySelector from './lib/selector';
-import { prospectsCollection } from '../lib/firebase';
+import Label from '../ui/Label';
+import Field from '../ui/Field';
+import Switch from '../ui/Switch';
+import Loader from '../ui/loader';
+import { COUNTRIES } from '../lib/countries';
+import CountrySelector from '../lib/selector';
+import { prospectsCollection } from '../../lib/firebase';
 
 const LinkUp = ({ onSubmit }) => {
   // Form
@@ -90,22 +89,10 @@ const LinkUp = ({ onSubmit }) => {
       <form
         onSubmit={submitHandler}
         action="#"
-        className='mb-12 z-10 px-12 md:rounded-2xl max-w-5xl w-full items-center justify-center place-content-center font-mono text-sm bg-white'
+        className='font-mono'
       >
-        <div style={{display: "flex", flexDirection: "column", alignItems:"center"}}>
-        <Image
-            src="/link-up.png"
-            width={300}
-            height={200}
-            className="rounded-lg"
-            alt="Screenshots of the dashboard project showing desktop version"
-          />
-          </div>
-          <div className="text-center pb-8">
-            <p className={`${manrope.className} text-gray-500 text-lg`}>The app to keep in touch</p>
-          </div>
           <div className="mt-5">
-            <Label htmlFor="company">Nom entreprise :</Label>
+            <Label htmlFor="company">Nom de l&apos;entreprise :</Label>
             <Field image="/company.png" alt="Nom">
               <input required type="text" name="company" id="company" className="block w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Nom de l'entreprise" />
             </Field>

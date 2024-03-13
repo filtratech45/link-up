@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from "next/image";
 
-const Check = ({condition}) => (
-    <td title={condition ? "oui" : "non"}>
-        <div className='w-full h-full justify-center flex'>
+const Check = ({Component = 'td', condition}) => (
+    <span title={condition ? "oui" : "non"}>
+        <span className='w-full h-full justify-center flex'>
         {condition ? (
             <Image
                 alt={"✓"}
@@ -23,8 +23,8 @@ const Check = ({condition}) => (
                 src='/cross.png'
             />
         )}
-        </div>
-    </td>
+        </span>
+    </span>
 );
 
 export default Check;
