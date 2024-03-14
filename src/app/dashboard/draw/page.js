@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import { query, where, getDocs } from "firebase/firestore";
 
 import Check from "/src/ui/Check";
@@ -42,6 +42,7 @@ export default function PageTirage() {
                 }
             } catch(e) {
                 console.error(e);
+                setError(e);
             }
         }
 
@@ -206,7 +207,7 @@ export default function PageTirage() {
         </div>
         <div className="flex my-20 justify-end">
             <button
-                onClick={() => {router.push('/dashboard')}}
+                onClick={() => { router.push('/dashboard'); }}
                 className={'z-40 border border-black shadow-lg bg-filtra hover:bg-hfiltra focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md px-3 py-2 text-sm font-semibold text-white'}
             >
                 <div>Revenir au tableau</div>

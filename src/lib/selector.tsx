@@ -42,7 +42,7 @@ export default function CountrySelector({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref]);
+  }, [open, onToggle, ref]);
 
   const [query, setQuery] = useState("");
 

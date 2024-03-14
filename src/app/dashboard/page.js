@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from "next/image";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import { getDocs } from "firebase/firestore"; 
 
 import Check from '/src/ui/Check'

@@ -18,9 +18,10 @@ export default function Template({ children }) {
           <Image
             src="/link-up.png"
             width={300}
-            height={200}
+            height={300}
+            priority={true}
             className="rounded-lg"
-            alt="Screenshots of the dashboard project showing desktop version"
+            alt="Link Up"
           />
         </div>
         <div className="text-center pb-8">

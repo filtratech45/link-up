@@ -1,0 +1,70 @@
+{
+    "form": {
+        "company": {
+            "label": "Nom de l'entreprise :",
+            "placeholder": "Acme"
+        },
+        "country": {
+            "label": "Pays de l'entreprise :",
+            "alt": "Drapeau"
+        },
+        "surname": {
+            "label": "Votre Nom :",
+            "placeholder": "Dupont"
+        },
+        "name": {
+            "label": "Votre Prénom :",
+            "placeholder": "Jean"
+        },
+        "role": {
+            "label": "Votre Fonction :",
+            "placeholder": "Responsable achats"
+        },
+        "email": {
+            "label": "Votre Adresse Mail :",
+            "placeholder": "jean@acme.com"
+        },
+        "phone": {
+            "label": "Votre Numéro de Téléphone (sans espaces) :",
+            "placeholder": "0102030405"
+        },
+        "isSupplier": {
+            "label": "Êtes-vous un distributeur de matériel de Laboratoire ?"
+        },
+        "isCollabFiltratech": {
+            "label": "Avez-vous déjà collaboré avec Filtratech ?"
+        },
+        "concours": {
+            "label": "Voulez-vous participer au concours ?"
+        },
+        "ContactObject": "Objet Contact :",
+        "DemandeInfos": {
+            "label": "demande d'informations"
+        },
+        "DemandeEchantillons": {
+            "label": "demande d'échantillons"
+        },
+        "DemandePrix": {
+            "label": "demande de prix"
+        },
+        "DemandeDocCom": {
+            "label": "demande de documents commerciaux"
+        },
+        "other": {
+            "label": "autre :"
+        },
+        "details": {
+            "label": "autre"
+        },
+        "comment": {
+            "label": "Remarques éventuelles :",
+            "placeholder": "Remarques"
+        },
+        "save": "Enregister"
+    },
+    "success": {
+        "message": "Votre Formulaire a bien été envoyé !",
+        "thanks": "Merci !",
+        "back": "Revenir"
+    }
+}

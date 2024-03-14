@@ -1,0 +1,70 @@
+{
+    "form": {
+        "company": {
+            "label": "Nombre de la empresa:",
+            "placeholder": "Acme"
+        },
+        "country": {
+            "label": "País de la empresa:",
+            "alt": "bandera"
+        },
+        "surname": {
+            "label": "Apellido:",
+            "placeholder": "Pablo"
+        },
+        "name": {
+            "label": "Nombre:",
+            "placeholder": "García"
+        },
+        "role": {
+            "label": "Tu cargo:",
+            "placeholder": "Purchase manager"
+        },
+        "email": {
+            "label": "Su dirección de correo electrónico:",
+            "placeholder": "pablo@acme.com"
+        },
+        "phone": {
+            "label": "Su número de teléfono (sin espacios):",
+            "placeholder": "612345678"
+        },
+        "isSupplier": {
+            "label": "¿Es usted distribuidor de material de laboratorio?"
+        },
+        "isCollabFiltratech": {
+            "label": "¿Ha trabajado anteriormente con Filtratech?"
+        },
+        "concours": {
+            "label": "¿Quiere participar en el concurso?"
+        },
+        "ContactObject": "Asunto:",
+        "DemandeInfos": {
+            "label": "solicitud de información"
+        },
+        "DemandeEchantillons": {
+            "label": "solicitud de muestras"
+        },
+        "DemandePrix": {
+            "label": "solicitud de precios"
+        },
+        "DemandeDocCom": {
+            "label": "solicitud de documentos comerciales"
+        },
+        "other": {
+            "label": "otros:"
+        },
+        "details": {
+            "label": "otros"
+        },
+        "comment": {
+            "label": "Cualquier comentario:",
+            "placeholder": "cómo"
+        },
+        "save": "Registrar"
+    },
+    "success": {
+        "message": "¡Su formulario ha sido enviado!",
+        "thanks": "¡Muchas gracias!",
+        "back": "Volver"
+    }
+}

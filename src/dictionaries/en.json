@@ -1,0 +1,70 @@
+{
+    "form": {
+        "company": {
+            "label": "Company name:",
+            "placeholder": "Acme"
+        },
+        "country": {
+            "label": "Company country:",
+            "alt": "flag"
+        },
+        "surname": {
+            "label": "Surname :",
+            "placeholder": "John"
+        },
+        "name": {
+            "label": "Name :",
+            "placeholder": "Doe"
+        },
+        "role": {
+            "label": "Your job title:",
+            "placeholder": "Purchase manager"
+        },
+        "email": {
+            "label": "Your e-mail address:",
+            "placeholder": "john@acme.com"
+        },
+        "phone": {
+            "label": "Your Telephone Number (without spaces):",
+            "placeholder": "011-123-4567"
+        },
+        "isSupplier": {
+            "label": "Are you a laboratory equipment distributor?"
+        },
+        "isCollabFiltratech": {
+            "label": "Have you previously worked with Filtratech?"
+        },
+        "concours": {
+            "label": "Do you want to take part in the competition?"
+        },
+        "ContactObject": "Subject:",
+        "DemandeInfos": {
+            "label": "information request"
+        },
+        "DemandeEchantillons": {
+            "label": "samples request"
+        },
+        "DemandePrix": {
+            "label": "price request"
+        },
+        "DemandeDocCom": {
+            "label": "commercial document request"
+        },
+        "other": {
+            "label": "other :"
+        },
+        "details": {
+            "label": "other"
+        },
+        "comment": {
+            "label": "Any comments :",
+            "placeholder": "comment"
+        },
+        "save": "Save"
+    },
+    "success": {
+        "message": "Your form has been sent!",
+        "thanks": "Thank you!",
+        "back": "Back"
+    }
+}
