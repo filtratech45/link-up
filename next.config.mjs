@@ -16,6 +16,7 @@ const nextConfig = (phase, { defaultConfig }) => {
     ...defaultConfig,
     output: 'export',
     distDir: 'build',
+    trailingSlash: true,
     images: {
       unoptimized: true,
     },

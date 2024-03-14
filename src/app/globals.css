@@ -53,18 +53,16 @@ body {
   white-space: nowrap; 
 }
 
-
-
-#prospects > table > tbody > tr:nth-child(even) {
-  background-color: lightgray;
-}
-
 #prospects > table > thead > tr,
 #prospects > table > tbody > tr {
   /* margin: 10px; */
   background-color: white;
   border: 1px solid black;
 }
+#prospects > table > tbody > tr:nth-child(even) {
+  background-color: lightgray;
+}
+
 #prospects th,
 #prospects td  {
   /* justify-content: center; */
@@ -76,6 +74,22 @@ body {
   padding: 10px;
   border: 1px solid black;
   /* background-color: green; */
+}
+
+@media (prefers-color-scheme: dark) {
+  /* #prospects td  {
+    color: rgb(0, 0, 0);
+  } */
+  #prospects > table > thead > tr,
+  #prospects > table > tbody > tr {
+    /* margin: 10px; */
+    background-color: black;
+    border: 1px solid white;
+  }
+  #prospects > table > tbody > tr:nth-child(even) {
+    background-color: darkgray;
+  }
+  
 }
 
 #prospects th {
