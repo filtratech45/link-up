@@ -6,15 +6,28 @@ import { useRouter } from 'next/navigation';
 import { query, where, getDocs } from "firebase/firestore";
 
 import Check from "/src/ui/Check";
-import { prospectsCollection } from '/src/lib/firebase';
+import { prospectsCollection, canAccess } from '/src/lib/firebase';
 
 export default function PageTirage() {
     const router = useRouter();
     const isInitialized = React.useRef(false);
+    const [error, setError] = React.useState(null);
+    const [clicked, setClicked] = React.useState(false);
+    const [prospect, setProspect] = React.useState(null);
     const [prospects, setProspects] = React.useState(null);
-    const [prospect, setProspect] = React.useState(null)
-    const [error, setError] = React.useState(null)
-    const [clicked, setClicked] = React.useState(false)
+    const [hasAccess, setHasAccess] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkAccess = async () => {
+            if (await canAccess()) {
+                setHasAccess(true);
+            } else {
+                router.push("/login");
+            }
+        }
+
+        checkAccess();
+    }, [router]);
         
     React.useEffect(() => {
         let cancelled = false;
@@ -55,7 +68,9 @@ export default function PageTirage() {
         const rndInt = Math.floor(Math.random() * (prospects.length));
         setProspect(prospects[rndInt]);
     }
-      
+    
+    if (!hasAccess) return null;
+
     return (
     <div className="w-full h-full justify-center flex flex-col items-center justify-center place-content-center">
         <div className="flex justify-end">

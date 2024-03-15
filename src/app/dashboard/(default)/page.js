@@ -2,35 +2,51 @@
 
 import React from 'react';
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
 import { getDocs } from "firebase/firestore"; 
+import { useRouter } from 'next/navigation';
 
 import Check from '/src/ui/Check'
 import Popup from '/src/ui/Popup'
-import { prospectsCollection } from '/src/lib/firebase';
+import { prospectsCollection, canAccess } from '/src/lib/firebase';
 
 export default function Page() {
     const router = useRouter();
-    let [comment, setComment] = React.useState(false)
-  
     const isInitialized = React.useRef(false);
+    const [comment, setComment] = React.useState(false);
     const [prospects, setProspects] = React.useState(null);
+    const [hasAccess, setHasAccess] = React.useState(false);
 
     React.useEffect(() => {
-        let cancelled = false;
-        async function fetch() {
-            const results = await getDocs(prospectsCollection);
-            isInitialized.current = true;
-            if (!cancelled) {
-                // console.log(results.docs);
-                setProspects(results.docs);
+        const checkAccess = async () => {
+            if (await canAccess()) {
+                setHasAccess(true);
+            } else {
+                router.push("/login");
             }
         }
 
-        if (!isInitialized.current) fetch();
+        checkAccess();
+    }, [router]);
 
-        return () => { cancelled = true; }
-    }, []);
+    React.useEffect(() => {
+        if (hasAccess) {
+            let cancelled = false;
+            async function fetch() {
+                const results = await getDocs(prospectsCollection);
+                isInitialized.current = true;
+                if (!cancelled) {
+                    // console.log(results.docs);
+                    setProspects(results.docs);
+                }
+            }
+
+            if (!isInitialized.current) fetch();
+
+            return () => { cancelled = true; }
+        }
+    }, [hasAccess]);
+
+    if (!hasAccess) return null;
 
     return (
         <div id="prospects" className=''>
@@ -200,7 +216,7 @@ export default function Page() {
             <Popup comment={comment} closeModal={() => setComment(false)} />
             <button
                 onClick={() => {router.push('/dashboard/draw')}}
-                className={'sticky border border-black shadow-lg bottom-5 left-5 bg-filtra hover:bg-hfiltra focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md px-3 py-2 text-sm font-semibold text-white'}
+                className='sticky border border-black shadow-lg bottom-5 left-5 bg-filtra hover:bg-hfiltra focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md px-3 py-2 text-sm font-semibold text-white'
             >
                 <p>Passer au tirage</p>
             </button>

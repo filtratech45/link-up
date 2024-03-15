@@ -1,7 +1,5 @@
 import "../globals.css";
 import { inter } from '../font.js';
-import { dictionaries } from '/src/dictionaries';
-
 
 export const metadata = {
   title: "Link Up",
@@ -16,12 +14,7 @@ export const metadata = {
   manifest: "/site.webmanifest",
 };
 
-export async function generateStaticParams() {
-  // console.log('generateStaticParams', Object.keys(dictionaries));
-  return Object.keys(dictionaries).map((locale) => ({ lang: locale }));
-}
-
-export default function FormLayout({ children, params: { lang } }) {
+export default function RootLayout({ children, params: { lang } }) {
   return (
     <html lang={lang}>
       <body className={`${inter.className} antialiased`}>

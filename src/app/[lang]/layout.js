@@ -17,7 +17,6 @@ export const metadata = {
 };
 
 export async function generateStaticParams() {
-  // console.log('generateStaticParams', Object.keys(dictionaries));
   return Object.keys(dictionaries).map((locale) => ({ lang: locale }));
 }
 
