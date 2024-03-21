@@ -65,6 +65,7 @@
     "success": {
         "message": "Your form has been sent!",
         "thanks": "Thank you!",
-        "back": "Back"
+        "website": "Website",
+        "back": "Back to the form"
     }
 }

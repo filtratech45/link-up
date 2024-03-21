@@ -65,6 +65,7 @@
     "success": {
         "message": "¡Su formulario ha sido enviado!",
         "thanks": "¡Muchas gracias!",
-        "back": "Volver"
+        "website": "Página web",
+        "back": "Volver al formulario"
     }
 }
